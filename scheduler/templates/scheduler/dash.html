@@ -1,0 +1,57 @@
+{% extends "./base.html" %}
+{% block content %}
+{%load static %}
+<div id="layoutSidenav_content">
+    <div class="container" style="width:35%; font-size: 14px">
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">{{message}}
+            <a href="{{url}}" type="button" class="btn btn-close" data-bs-dismiss="alert" area-label="Close"> </a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container" id="layoutSidenav_content">
+        <div class="row border  border-primary">
+            <div class="col-6">
+                <form method="POST" class="card p-3 mt-5" autocomplete="off">
+                    {% csrf_token %}
+                    <select class="form-select" name="item_id" aria-label="Default select example">
+                        {% for entry in form %}
+                        {% if entry.is_the_chosen_one %}
+                        <option value="{{ entry.id }}" selected>{{ entry.schedule }} </option>
+                        {% endif %}
+                        {% if entry.is_the_chosen_one == False %}
+                        <option value="{{ entry.id }}">{{ entry.schedule }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div class="label">
+                        Are you sure to Activate this ?
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary mt-3">Yes</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6">
+                <div class="card p-3 m-5">
+                    {% for entry in form %}
+                    {% if entry.is_the_chosen_one %}
+                    <h1 class="d-flex justify-content-center"> {{entry.schedule}}</h1>
+                    <div class="aspect-ratio-box d-flex justify-content-center">
+                        <img class="img-fluid img-thumbnail" src="{% static '../media'%}/{{entry.img}} "
+                            style="width: 320px; height: 240px;" />
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+{% endblock %}

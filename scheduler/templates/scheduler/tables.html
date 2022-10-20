@@ -1,0 +1,130 @@
+{% extends "./base.html" %}
+{% block content %}
+{% load static %}
+
+
+
+
+
+
+
+       <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Tables</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="/tt/">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Tables</li>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            {% for data in sch %}
+                            {{data.schedule}}
+                            {{data.description}}
+                            {{data.last_modified}}
+                            <div class="aspect-ratio-box">
+                                <img class="img-fluid img-thumbnail" src="{% static '../media'%}/{{data.img}} " style="width: 320px; height: 240px;"/>
+                            </div>                   
+                            {% endfor %}
+                           
+                            
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            Time Table
+                        </div>
+
+
+
+
+
+                        {% for message in messages %}
+                        {% if message.tags == 'success' %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">{{message}}
+                            <a href="{{url}}" type="button" class="btn btn-close" data-bs-dismiss="alert" area-label="Close"> </a>
+                        </div> 
+                        {% elif message.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">{{message}}
+                            <a href="{{url}}" type="button" class="btn btn-close" data-bs-dismiss="alert" area-label="Close"> </a>
+                        </div> 
+                        {% elif message.tags == 'warning' %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">{{message}}
+                            <a href="{{url}}" type="button" class="btn btn-close" data-bs-dismiss="alert" area-label="Close"> </a>
+                        </div> 
+
+
+
+
+                
+                        {% endif %}
+                        {% endfor %}
+
+
+ 
+
+
+                        <div class="card-body">
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Period Duration</th>
+                                        <th>Bell count</th>
+                                        <th>Bell Duration</th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Start Time</th>
+                                        <th>End Time</th>
+                                        <th>Period Duration</th>
+                                        <th>Bell count date</th>
+                                        <th>Bell Duration</th>
+                                        <th> </th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+
+
+
+                                    {% for time in timetable %}
+                                    <tr>
+                                        <td> {{time.name}} </td>
+                                        <td> {{time.period_start}} </td>
+                                        <td> {{time.period_end}}</td>
+                                        <td> {{time.period_duration}}</td>
+                                        <td> {{time.count}}</td>
+                                        <td>{{time.bell_duration}}</td>
+
+                                        <td><a href="/tt/edit/{{ time.id }}"><span
+                                                    class="glyphicon glyphicon-pencil">Edit</span></a> </td>
+                                        <td> <a href="/tt/delete/{{ time.id }}">Delete</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; kthanigaivel@gmail.com 2022</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+{% endblock %}

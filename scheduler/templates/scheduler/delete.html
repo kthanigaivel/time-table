@@ -1,0 +1,26 @@
+{% extends "./base.html" %}
+{% block content %}
+
+
+
+<div id="layoutSidenav_content">
+
+        <div class="container met-3" style="width:35%; font-size: 14px">
+
+        <form method="POST" class="card p-3 mt-5" autocomplete="off">
+            {% csrf_token %}
+            <p>
+                Are you sure to Delete this ?
+                <button type="submit" class="btn btn-primary mt-3" >Yes</button>
+                
+            </p>
+ 
+                
+       
+        </form>
+
+        </div>
+</div>
+
+  
+{% endblock %}
